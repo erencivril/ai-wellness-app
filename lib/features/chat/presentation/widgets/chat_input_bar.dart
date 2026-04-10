@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import '../../../../../../app/theme/app_colors.dart';
 
 class ChatInputBar extends StatefulWidget {
   const ChatInputBar({
@@ -32,17 +35,12 @@ class _ChatInputBarState extends State<ChatInputBar> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return SafeArea(
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-        decoration: BoxDecoration(
-          color: theme.colorScheme.surface,
-          border: Border(
-            top: BorderSide(
-              color: theme.colorScheme.outline.withValues(alpha: 0.2),
-            ),
-          ),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+        decoration: const BoxDecoration(
+          color: AppColors.surface,
+          border: Border(top: BorderSide(color: AppColors.border)),
         ),
         child: Row(
           children: [
@@ -51,26 +49,99 @@ class _ChatInputBarState extends State<ChatInputBar> {
                 controller: _controller,
                 enabled: widget.enabled,
                 maxLines: null,
-                textInputAction: TextInputAction.newline,
-                decoration: const InputDecoration(
-                  hintText: 'Type a message...',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(24)),
+                style: GoogleFonts.dmSans(
+                  fontSize: 14,
+                  color: AppColors.cream,
+                  height: 1.5,
+                ),
+                decoration: InputDecoration(
+                  hintText: widget.enabled ? 'Message your coach…' : 'Thinking…',
+                  hintStyle: GoogleFonts.dmSans(
+                    fontSize: 14,
+                    color: AppColors.textHint,
+                  ),
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 18,
+                    vertical: 12,
                   ),
                 ),
                 onSubmitted: widget.enabled ? (_) => _submit() : null,
               ),
             ),
-            const SizedBox(width: 8),
-            FilledButton(
-              onPressed: widget.enabled ? _submit : null,
-              style: FilledButton.styleFrom(
-                shape: const CircleBorder(),
-                padding: const EdgeInsets.all(14),
-              ),
-              child: const Icon(Icons.send_rounded, size: 20),
-            ),
+            const SizedBox(width: 10),
+            _SendButton(onTap: widget.enabled ? _submit : null),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class _SendButton extends StatefulWidget {
+  const _SendButton({this.onTap});
+  final VoidCallback? onTap;
+
+  @override
+  State<_SendButton> createState() => _SendButtonState();
+}
+
+class _SendButtonState extends State<_SendButton>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _ctrl;
+  late final Animation<double> _scale;
+
+  @override
+  void initState() {
+    super.initState();
+    _ctrl = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 100),
+      lowerBound: 0.88,
+      upperBound: 1.0,
+      value: 1.0,
+    );
+    _scale = _ctrl;
+  }
+
+  @override
+  void dispose() {
+    _ctrl.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final enabled = widget.onTap != null;
+    return ScaleTransition(
+      scale: _scale,
+      child: GestureDetector(
+        onTapDown: enabled ? (_) => _ctrl.reverse() : null,
+        onTapUp: enabled
+            ? (_) {
+                _ctrl.forward();
+                widget.onTap?.call();
+              }
+            : null,
+        onTapCancel: () => _ctrl.forward(),
+        child: Container(
+          width: 44,
+          height: 44,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            gradient: enabled
+                ? const LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [AppColors.gold, AppColors.goldDim],
+                  )
+                : null,
+            color: enabled ? null : AppColors.surfaceRaised,
+          ),
+          child: Icon(
+            Icons.arrow_upward_rounded,
+            size: 20,
+            color: enabled ? AppColors.bg : AppColors.textHint,
+          ),
         ),
       ),
     );

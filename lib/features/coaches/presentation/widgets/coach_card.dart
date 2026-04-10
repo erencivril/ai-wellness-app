@@ -1,8 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../../../app/theme/app_colors.dart';
 import '../../data/models/coach.dart';
 
-class CoachCard extends StatelessWidget {
+Color _orbColor(String coachId) {
+  return switch (coachId) {
+    'dietitian' => AppColors.coachDietitian,
+    'fitness_coach' => AppColors.coachFitness,
+    'pilates_instructor' => AppColors.coachPilates,
+    'yoga_teacher' => AppColors.coachYoga,
+    _ => AppColors.sageDim,
+  };
+}
+
+class CoachCard extends StatefulWidget {
   const CoachCard({
     super.key,
     required this.coach,
@@ -13,49 +25,181 @@ class CoachCard extends StatelessWidget {
   final VoidCallback onTap;
 
   @override
+  State<CoachCard> createState() => _CoachCardState();
+}
+
+class _CoachCardState extends State<CoachCard>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller;
+  late final Animation<double> _scaleAnim;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 120),
+      lowerBound: 0.95,
+      upperBound: 1.0,
+      value: 1.0,
+    );
+    _scaleAnim = _controller;
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return Card(
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(16),
-        child: Padding(
-          padding: const EdgeInsets.all(20),
+    final orb = _orbColor(widget.coach.id);
+
+    return ScaleTransition(
+      scale: _scaleAnim,
+      child: GestureDetector(
+        onTapDown: (_) => _controller.reverse(),
+        onTapUp: (_) {
+          _controller.forward();
+          widget.onTap();
+        },
+        onTapCancel: () => _controller.forward(),
+        child: Container(
+          decoration: BoxDecoration(
+            color: AppColors.surface,
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(color: AppColors.border),
+          ),
+          clipBehavior: Clip.hardEdge,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                width: 48,
-                height: 48,
-                decoration: BoxDecoration(
-                  color: theme.colorScheme.primaryContainer,
-                  borderRadius: BorderRadius.circular(12),
+              _CardHeader(icon: widget.coach.icon, orbColor: orb),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 14, 16, 16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      widget.coach.name,
+                      style: GoogleFonts.playfairDisplay(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w600,
+                        fontStyle: FontStyle.italic,
+                        color: AppColors.cream,
+                        height: 1.2,
+                      ),
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      widget.coach.description,
+                      style: GoogleFonts.dmSans(
+                        fontSize: 11.5,
+                        color: AppColors.creamMuted,
+                        height: 1.4,
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const SizedBox(height: 14),
+                    Row(
+                      children: [
+                        Text(
+                          'Start session',
+                          style: GoogleFonts.dmSans(
+                            fontSize: 11,
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.gold,
+                            letterSpacing: 0.3,
+                          ),
+                        ),
+                        const Spacer(),
+                        Container(
+                          width: 26,
+                          height: 26,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(color: AppColors.goldDim),
+                          ),
+                          child: const Icon(
+                            Icons.arrow_forward,
+                            size: 13,
+                            color: AppColors.gold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-                child: Icon(
-                  coach.icon,
-                  color: theme.colorScheme.primary,
-                  size: 28,
-                ),
-              ),
-              const SizedBox(height: 16),
-              Text(
-                coach.name,
-                style: theme.textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                coach.description,
-                style: theme.textTheme.bodySmall?.copyWith(
-                  color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
-                ),
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
               ),
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _CardHeader extends StatelessWidget {
+  const _CardHeader({required this.icon, required this.orbColor});
+
+  final IconData icon;
+  final Color orbColor;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 90,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            orbColor.withValues(alpha: 0.18),
+            AppColors.bg.withValues(alpha: 0.4),
+          ],
+        ),
+      ),
+      child: Stack(
+        children: [
+          Positioned(
+            top: -20,
+            right: -20,
+            child: Container(
+              width: 90,
+              height: 90,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: orbColor.withValues(alpha: 0.1),
+              ),
+            ),
+          ),
+          Center(
+            child: Container(
+              width: 52,
+              height: 52,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: RadialGradient(
+                  colors: [
+                    orbColor.withValues(alpha: 0.85),
+                    orbColor.withValues(alpha: 0.4),
+                  ],
+                  stops: const [0.3, 1.0],
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: orbColor.withValues(alpha: 0.45),
+                    blurRadius: 18,
+                    spreadRadius: 2,
+                  ),
+                ],
+              ),
+              child: Icon(icon, size: 24, color: AppColors.cream),
+            ),
+          ),
+        ],
       ),
     );
   }

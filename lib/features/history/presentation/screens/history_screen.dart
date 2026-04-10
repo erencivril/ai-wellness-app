@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../app/theme/app_colors.dart';
 import '../../../../core/di/injection.dart';
 import '../../../../core/router/route_names.dart';
 import '../../../coaches/data/repositories/coach_repository.dart';
@@ -27,84 +29,185 @@ class _HistoryView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final top = MediaQuery.of(context).padding.top;
     return Scaffold(
-      appBar: AppBar(title: const Text('Chat History')),
-      body: BlocBuilder<HistoryCubit, HistoryState>(
-        builder: (context, state) {
-          if (state.status == HistoryStatus.loading ||
-              state.status == HistoryStatus.initial) {
-            return const Center(child: CircularProgressIndicator());
-          }
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _Header(topPadding: top),
+          Expanded(
+            child: BlocBuilder<HistoryCubit, HistoryState>(
+              builder: (context, state) {
+                if (state.status == HistoryStatus.loading ||
+                    state.status == HistoryStatus.initial) {
+                  return const Center(
+                    child: CircularProgressIndicator(color: AppColors.gold),
+                  );
+                }
 
-          if (state.status == HistoryStatus.error) {
-            return Center(
-              child: Text(state.errorMessage ?? 'Something went wrong'),
-            );
-          }
+                if (state.status == HistoryStatus.error) {
+                  return Center(
+                    child: Text(
+                      state.errorMessage ?? 'Something went wrong',
+                      style: GoogleFonts.dmSans(color: AppColors.creamMuted),
+                    ),
+                  );
+                }
 
-          if (state.sessions.isEmpty) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.chat_bubble_outline,
-                    size: 64,
-                    color: Theme.of(context)
-                        .colorScheme
-                        .onSurface
-                        .withValues(alpha: 0.3),
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    'No conversations yet',
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          color: Theme.of(context)
-                              .colorScheme
-                              .onSurface
-                              .withValues(alpha: 0.5),
+                if (state.sessions.isEmpty) {
+                  return _EmptyHistory();
+                }
+
+                final coaches = getIt<CoachRepository>().loadCoaches();
+
+                return RefreshIndicator(
+                  color: AppColors.gold,
+                  backgroundColor: AppColors.surface,
+                  onRefresh: () => context.read<HistoryCubit>().loadHistory(),
+                  child: ListView.separated(
+                    itemCount: state.sessions.length,
+                    separatorBuilder: (_, __) => const Divider(
+                      indent: 20,
+                      endIndent: 20,
+                      height: 1,
+                    ),
+                    itemBuilder: (context, index) {
+                      final session = state.sessions[index];
+                      final coach = coaches.firstWhere(
+                        (c) => c.id == session.coachId,
+                        orElse: () => coaches.first,
+                      );
+                      return HistoryTile(
+                        session: session,
+                        onTap: () => context.pushNamed(
+                          RouteNames.resumeChat,
+                          pathParameters: {'sessionId': session.id},
+                          extra: {'coach': coach, 'sessionId': session.id},
                         ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Start chatting with a coach!',
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: Theme.of(context)
-                              .colorScheme
-                              .onSurface
-                              .withValues(alpha: 0.4),
-                        ),
-                  ),
-                ],
-              ),
-            );
-          }
-
-          final coaches = getIt<CoachRepository>().loadCoaches();
-
-          return RefreshIndicator(
-            onRefresh: () => context.read<HistoryCubit>().loadHistory(),
-            child: ListView.separated(
-              itemCount: state.sessions.length,
-              separatorBuilder: (_, __) => const Divider(height: 1),
-              itemBuilder: (context, index) {
-                final session = state.sessions[index];
-                final coach = coaches.firstWhere(
-                  (c) => c.id == session.coachId,
-                  orElse: () => coaches.first,
-                );
-                return HistoryTile(
-                  session: session,
-                  onTap: () => context.pushNamed(
-                    RouteNames.resumeChat,
-                    pathParameters: {'sessionId': session.id},
-                    extra: {'coach': coach, 'sessionId': session.id},
+                      );
+                    },
                   ),
                 );
               },
             ),
-          );
-        },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _Header extends StatelessWidget {
+  const _Header({required this.topPadding});
+  final double topPadding;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.fromLTRB(24, topPadding + 20, 24, 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                width: 6,
+                height: 6,
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: AppColors.gold,
+                ),
+              ),
+              const SizedBox(width: 8),
+              Text(
+                'AI Wellness',
+                style: GoogleFonts.dmSans(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.gold,
+                  letterSpacing: 1.2,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          RichText(
+            text: TextSpan(
+              children: [
+                TextSpan(
+                  text: 'Chat\n',
+                  style: GoogleFonts.playfairDisplay(
+                    fontSize: 46,
+                    fontWeight: FontWeight.w400,
+                    fontStyle: FontStyle.italic,
+                    color: AppColors.cream,
+                    height: 1.0,
+                  ),
+                ),
+                TextSpan(
+                  text: 'History',
+                  style: GoogleFonts.playfairDisplay(
+                    fontSize: 46,
+                    fontWeight: FontWeight.w700,
+                    color: AppColors.cream,
+                    height: 1.1,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 20),
+          Container(height: 1, color: AppColors.border),
+        ],
+      ),
+    );
+  }
+}
+
+class _EmptyHistory extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 48),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              width: 72,
+              height: 72,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(color: AppColors.border, width: 1.5),
+              ),
+              child: const Icon(
+                Icons.history_rounded,
+                size: 30,
+                color: AppColors.textHint,
+              ),
+            ),
+            const SizedBox(height: 24),
+            Text(
+              'No sessions yet',
+              style: GoogleFonts.playfairDisplay(
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+                fontStyle: FontStyle.italic,
+                color: AppColors.cream,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'Your coaching sessions will appear here after your first conversation.',
+              textAlign: TextAlign.center,
+              style: GoogleFonts.dmSans(
+                fontSize: 13,
+                color: AppColors.creamMuted,
+                height: 1.55,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

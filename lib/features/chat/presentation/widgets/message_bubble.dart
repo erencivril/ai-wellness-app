@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../../../app/theme/app_colors.dart';
 import '../../data/models/chat_message.dart';
 
 class MessageBubble extends StatelessWidget {
@@ -11,35 +13,88 @@ class MessageBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return Align(
       alignment: _isUser ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(
         margin: EdgeInsets.only(
-          top: 4,
-          bottom: 4,
-          left: _isUser ? 64 : 0,
-          right: _isUser ? 0 : 64,
+          top: 3,
+          bottom: 3,
+          left: _isUser ? 56 : 0,
+          right: _isUser ? 0 : 56,
         ),
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        decoration: BoxDecoration(
-          color: _isUser
-              ? theme.colorScheme.primary
-              : theme.colorScheme.surfaceContainerHighest,
-          borderRadius: BorderRadius.only(
-            topLeft: const Radius.circular(18),
-            topRight: const Radius.circular(18),
-            bottomLeft: Radius.circular(_isUser ? 18 : 4),
-            bottomRight: Radius.circular(_isUser ? 4 : 18),
-          ),
+        child: _isUser ? _UserBubble(text: message.text) : _AiBubble(text: message.text),
+      ),
+    );
+  }
+}
+
+class _UserBubble extends StatelessWidget {
+  const _UserBubble({required this.text});
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [AppColors.gold, AppColors.goldDim],
         ),
-        child: Text(
-          message.text,
-          style: theme.textTheme.bodyMedium?.copyWith(
-            color: _isUser
-                ? theme.colorScheme.onPrimary
-                : theme.colorScheme.onSurface,
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(18),
+          topRight: Radius.circular(18),
+          bottomLeft: Radius.circular(18),
+          bottomRight: Radius.circular(4),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.gold.withValues(alpha: 0.2),
+            blurRadius: 12,
+            offset: const Offset(0, 4),
           ),
+        ],
+      ),
+      child: Text(
+        text,
+        style: GoogleFonts.dmSans(
+          fontSize: 14,
+          color: AppColors.bg,
+          fontWeight: FontWeight.w500,
+          height: 1.5,
+        ),
+      ),
+    );
+  }
+}
+
+class _AiBubble extends StatelessWidget {
+  const _AiBubble({required this.text});
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      decoration: const BoxDecoration(
+        color: AppColors.surface,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(4),
+          topRight: Radius.circular(18),
+          bottomLeft: Radius.circular(18),
+          bottomRight: Radius.circular(18),
+        ),
+        border: Border(
+          left: BorderSide(color: AppColors.sageDim, width: 2),
+        ),
+      ),
+      child: Text(
+        text,
+        style: GoogleFonts.dmSans(
+          fontSize: 14,
+          color: AppColors.cream,
+          height: 1.6,
         ),
       ),
     );
