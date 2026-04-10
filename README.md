@@ -1,4 +1,5 @@
 # AI Wellness Coach
+<img width="412" height="916" alt="image" src="https://github.com/user-attachments/assets/6ed77f9b-96cc-4a99-9bf9-089acd74ccf6" />
 
 A health and wellness mobile application where users interact with AI coaches (Dietitian, Fitness Coach, Pilates Instructor, Yoga Teacher). Built for the Connectinno Flutter Academy case study.
 
@@ -116,3 +117,10 @@ flutter run
 ---
 
 ## Screenshots
+<img width="412" height="916" alt="image" src="https://github.com/user-attachments/assets/5a27f931-e04d-44f3-89f8-8c703a8ae82e" />
+<img width="412" height="916" alt="image" src="https://github.com/user-attachments/assets/88b01fad-7cc4-4a43-83fb-b671dba3995c" />
+<img width="412" height="916" alt="image" src="https://github.com/user-attachments/assets/1e357967-ce15-487d-8b9c-a709765d1bcf" />
+<img width="412" height="916" alt="image" src="https://github.com/user-attachments/assets/345115f0-42cb-4def-895c-1c3ae8b23cb2" />
+<img width="412" height="916" alt="image" src="https://github.com/user-attachments/assets/c9fe9f86-0845-46e7-adfe-dc790bc6f9ed" />
+<img width="412" height="916" alt="image" src="https://github.com/user-attachments/assets/a9147672-2494-4ad1-9579-7f3ebd23a589" />
+
