@@ -41,7 +41,7 @@ class _HistoryView extends StatelessWidget {
                 if (state.status == HistoryStatus.loading ||
                     state.status == HistoryStatus.initial) {
                   return const Center(
-                    child: CircularProgressIndicator(color: AppColors.gold),
+                    child: CircularProgressIndicator(color: AppColors.primary),
                   );
                 }
 
@@ -49,7 +49,9 @@ class _HistoryView extends StatelessWidget {
                   return Center(
                     child: Text(
                       state.errorMessage ?? 'Something went wrong',
-                      style: GoogleFonts.dmSans(color: AppColors.creamMuted),
+                      style: GoogleFonts.plusJakartaSans(
+                        color: AppColors.textSecondary,
+                      ),
                     ),
                   );
                 }
@@ -61,7 +63,7 @@ class _HistoryView extends StatelessWidget {
                 final coaches = getIt<CoachRepository>().loadCoaches();
 
                 return RefreshIndicator(
-                  color: AppColors.gold,
+                  color: AppColors.primary,
                   backgroundColor: AppColors.surface,
                   onRefresh: () => context.read<HistoryCubit>().loadHistory(),
                   child: ListView.separated(
@@ -115,16 +117,16 @@ class _Header extends StatelessWidget {
                 height: 6,
                 decoration: const BoxDecoration(
                   shape: BoxShape.circle,
-                  color: AppColors.gold,
+                  color: AppColors.primary,
                 ),
               ),
               const SizedBox(width: 8),
               Text(
                 'AI Wellness',
-                style: GoogleFonts.dmSans(
+                style: GoogleFonts.plusJakartaSans(
                   fontSize: 11,
                   fontWeight: FontWeight.w500,
-                  color: AppColors.gold,
+                  color: AppColors.primary,
                   letterSpacing: 1.2,
                 ),
               ),
@@ -136,20 +138,20 @@ class _Header extends StatelessWidget {
               children: [
                 TextSpan(
                   text: 'Chat\n',
-                  style: GoogleFonts.playfairDisplay(
+                  style: GoogleFonts.fraunces(
                     fontSize: 46,
                     fontWeight: FontWeight.w400,
                     fontStyle: FontStyle.italic,
-                    color: AppColors.cream,
+                    color: AppColors.textPrimary,
                     height: 1.0,
                   ),
                 ),
                 TextSpan(
                   text: 'History',
-                  style: GoogleFonts.playfairDisplay(
+                  style: GoogleFonts.fraunces(
                     fontSize: 46,
                     fontWeight: FontWeight.w700,
-                    color: AppColors.cream,
+                    color: AppColors.textPrimary,
                     height: 1.1,
                   ),
                 ),
@@ -179,6 +181,7 @@ class _EmptyHistory extends StatelessWidget {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 border: Border.all(color: AppColors.border, width: 1.5),
+                color: AppColors.surfaceWarm,
               ),
               child: const Icon(
                 Icons.history_rounded,
@@ -189,20 +192,20 @@ class _EmptyHistory extends StatelessWidget {
             const SizedBox(height: 24),
             Text(
               'No sessions yet',
-              style: GoogleFonts.playfairDisplay(
+              style: GoogleFonts.fraunces(
                 fontSize: 20,
                 fontWeight: FontWeight.w600,
                 fontStyle: FontStyle.italic,
-                color: AppColors.cream,
+                color: AppColors.textPrimary,
               ),
             ),
             const SizedBox(height: 8),
             Text(
               'Your coaching sessions will appear here after your first conversation.',
               textAlign: TextAlign.center,
-              style: GoogleFonts.dmSans(
+              style: GoogleFonts.plusJakartaSans(
                 fontSize: 13,
-                color: AppColors.creamMuted,
+                color: AppColors.textSecondary,
                 height: 1.55,
               ),
             ),

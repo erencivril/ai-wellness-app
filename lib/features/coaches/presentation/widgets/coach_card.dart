@@ -10,7 +10,7 @@ Color _orbColor(String coachId) {
     'fitness_coach' => AppColors.coachFitness,
     'pilates_instructor' => AppColors.coachPilates,
     'yoga_teacher' => AppColors.coachYoga,
-    _ => AppColors.sageDim,
+    _ => AppColors.primary,
   };
 }
 
@@ -70,6 +70,13 @@ class _CoachCardState extends State<CoachCard>
             color: AppColors.surface,
             borderRadius: BorderRadius.circular(20),
             border: Border.all(color: AppColors.border),
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.borderStrong.withValues(alpha: 0.3),
+                blurRadius: 8,
+                offset: const Offset(0, 2),
+              ),
+            ],
           ),
           clipBehavior: Clip.hardEdge,
           child: Column(
@@ -83,20 +90,20 @@ class _CoachCardState extends State<CoachCard>
                   children: [
                     Text(
                       widget.coach.name,
-                      style: GoogleFonts.playfairDisplay(
+                      style: GoogleFonts.fraunces(
                         fontSize: 17,
                         fontWeight: FontWeight.w600,
                         fontStyle: FontStyle.italic,
-                        color: AppColors.cream,
+                        color: AppColors.textPrimary,
                         height: 1.2,
                       ),
                     ),
                     const SizedBox(height: 5),
                     Text(
                       widget.coach.description,
-                      style: GoogleFonts.dmSans(
+                      style: GoogleFonts.plusJakartaSans(
                         fontSize: 11.5,
-                        color: AppColors.creamMuted,
+                        color: AppColors.textSecondary,
                         height: 1.4,
                       ),
                       maxLines: 2,
@@ -107,10 +114,10 @@ class _CoachCardState extends State<CoachCard>
                       children: [
                         Text(
                           'Start session',
-                          style: GoogleFonts.dmSans(
+                          style: GoogleFonts.plusJakartaSans(
                             fontSize: 11,
                             fontWeight: FontWeight.w500,
-                            color: AppColors.gold,
+                            color: AppColors.primary,
                             letterSpacing: 0.3,
                           ),
                         ),
@@ -120,12 +127,13 @@ class _CoachCardState extends State<CoachCard>
                           height: 26,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            border: Border.all(color: AppColors.goldDim),
+                            border: Border.all(color: AppColors.primaryContainer),
+                            color: AppColors.primaryLight,
                           ),
                           child: const Icon(
                             Icons.arrow_forward,
                             size: 13,
-                            color: AppColors.gold,
+                            color: AppColors.primary,
                           ),
                         ),
                       ],
@@ -156,8 +164,8 @@ class _CardHeader extends StatelessWidget {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            orbColor.withValues(alpha: 0.18),
-            AppColors.bg.withValues(alpha: 0.4),
+            orbColor.withValues(alpha: 0.12),
+            orbColor.withValues(alpha: 0.04),
           ],
         ),
       ),
@@ -171,7 +179,7 @@ class _CardHeader extends StatelessWidget {
               height: 90,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: orbColor.withValues(alpha: 0.1),
+                color: orbColor.withValues(alpha: 0.07),
               ),
             ),
           ),
@@ -181,22 +189,20 @@ class _CardHeader extends StatelessWidget {
               height: 52,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                gradient: RadialGradient(
-                  colors: [
-                    orbColor.withValues(alpha: 0.85),
-                    orbColor.withValues(alpha: 0.4),
-                  ],
-                  stops: const [0.3, 1.0],
+                color: orbColor.withValues(alpha: 0.15),
+                border: Border.all(
+                  color: orbColor.withValues(alpha: 0.3),
+                  width: 1.5,
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color: orbColor.withValues(alpha: 0.45),
-                    blurRadius: 18,
-                    spreadRadius: 2,
+                    color: orbColor.withValues(alpha: 0.2),
+                    blurRadius: 12,
+                    spreadRadius: 1,
                   ),
                 ],
               ),
-              child: Icon(icon, size: 24, color: AppColors.cream),
+              child: Icon(icon, size: 24, color: orbColor),
             ),
           ),
         ],

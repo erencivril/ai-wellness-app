@@ -30,8 +30,8 @@ class HistoryTile extends StatelessWidget {
       color: Colors.transparent,
       child: InkWell(
         onTap: onTap,
-        splashColor: AppColors.gold.withValues(alpha: 0.05),
-        highlightColor: AppColors.surfaceRaised.withValues(alpha: 0.5),
+        splashColor: AppColors.primary.withValues(alpha: 0.05),
+        highlightColor: AppColors.surfaceWarm.withValues(alpha: 0.7),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
           child: Row(
@@ -46,19 +46,19 @@ class HistoryTile extends StatelessWidget {
                       children: [
                         Text(
                           session.coachName,
-                          style: GoogleFonts.playfairDisplay(
+                          style: GoogleFonts.fraunces(
                             fontSize: 15,
                             fontWeight: FontWeight.w600,
                             fontStyle: FontStyle.italic,
-                            color: AppColors.cream,
+                            color: AppColors.textPrimary,
                           ),
                         ),
                         const Spacer(),
                         Text(
                           _formatDate(session.updatedAt),
-                          style: GoogleFonts.dmSans(
+                          style: GoogleFonts.plusJakartaSans(
                             fontSize: 11,
-                            color: AppColors.gold,
+                            color: AppColors.primary,
                             letterSpacing: 0.2,
                           ),
                         ),
@@ -70,9 +70,9 @@ class HistoryTile extends StatelessWidget {
                         session.lastMessage!,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: GoogleFonts.dmSans(
+                        style: GoogleFonts.plusJakartaSans(
                           fontSize: 12.5,
-                          color: AppColors.creamMuted,
+                          color: AppColors.textSecondary,
                           height: 1.4,
                         ),
                       ),
@@ -105,17 +105,17 @@ class _CoachInitial extends StatelessWidget {
       height: 44,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: AppColors.surfaceRaised,
-        border: Border.all(color: AppColors.border),
+        color: AppColors.primaryLight,
+        border: Border.all(color: AppColors.primaryContainer),
       ),
       child: Center(
         child: Text(
           name.isNotEmpty ? name[0].toUpperCase() : '?',
-          style: GoogleFonts.playfairDisplay(
+          style: GoogleFonts.fraunces(
             fontSize: 18,
             fontWeight: FontWeight.w700,
             fontStyle: FontStyle.italic,
-            color: AppColors.gold,
+            color: AppColors.primary,
           ),
         ),
       ),

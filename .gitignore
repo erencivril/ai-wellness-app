@@ -55,3 +55,6 @@ firebase.json
 
 # Case study PDF
 Academy Case.pdf
+
+# PDF analysis artifacts
+analysis/

@@ -40,7 +40,7 @@ class _UserBubble extends StatelessWidget {
         gradient: const LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [AppColors.gold, AppColors.goldDim],
+          colors: [AppColors.primary, AppColors.primaryDark],
         ),
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(18),
@@ -50,17 +50,17 @@ class _UserBubble extends StatelessWidget {
         ),
         boxShadow: [
           BoxShadow(
-            color: AppColors.gold.withValues(alpha: 0.2),
-            blurRadius: 12,
-            offset: const Offset(0, 4),
+            color: AppColors.primary.withValues(alpha: 0.2),
+            blurRadius: 10,
+            offset: const Offset(0, 3),
           ),
         ],
       ),
       child: Text(
         text,
-        style: GoogleFonts.dmSans(
+        style: GoogleFonts.plusJakartaSans(
           fontSize: 14,
-          color: AppColors.bg,
+          color: Colors.white,
           fontWeight: FontWeight.w500,
           height: 1.5,
         ),
@@ -86,14 +86,14 @@ class _AiBubble extends StatelessWidget {
           bottomRight: Radius.circular(18),
         ),
         border: Border(
-          left: BorderSide(color: AppColors.sageDim, width: 2),
+          left: BorderSide(color: AppColors.primaryContainer, width: 2),
         ),
       ),
       child: Text(
         text,
-        style: GoogleFonts.dmSans(
+        style: GoogleFonts.plusJakartaSans(
           fontSize: 14,
-          color: AppColors.cream,
+          color: AppColors.textPrimary,
           height: 1.6,
         ),
       ),

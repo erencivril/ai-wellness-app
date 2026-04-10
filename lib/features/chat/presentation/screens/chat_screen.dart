@@ -109,7 +109,7 @@ class _ChatViewState extends State<_ChatView> {
                 if (state.status == ChatStatus.loading ||
                     state.status == ChatStatus.initial) {
                   return const Center(
-                    child: CircularProgressIndicator(color: AppColors.gold),
+                    child: CircularProgressIndicator(color: AppColors.primary),
                   );
                 }
 
@@ -121,7 +121,9 @@ class _ChatViewState extends State<_ChatView> {
                       child: Text(
                         state.errorMessage ?? 'Something went wrong',
                         textAlign: TextAlign.center,
-                        style: GoogleFonts.dmSans(color: AppColors.creamMuted),
+                        style: GoogleFonts.plusJakartaSans(
+                          color: AppColors.textSecondary,
+                        ),
                       ),
                     ),
                   );
@@ -131,8 +133,7 @@ class _ChatViewState extends State<_ChatView> {
 
                 if (state.messages.isEmpty && !isStreaming) {
                   return _EmptyChat(
-                    coachName:
-                        state.session?.coachName ?? widget.coachName,
+                    coachName: state.session?.coachName ?? widget.coachName,
                   );
                 }
 
@@ -183,7 +184,7 @@ class _ChatAppBar extends StatelessWidget {
         children: [
           IconButton(
             icon: const Icon(Icons.arrow_back_ios_new_rounded,
-                size: 18, color: AppColors.cream),
+                size: 18, color: AppColors.textPrimary),
             onPressed: () => Navigator.of(context).maybePop(),
           ),
           const SizedBox(width: 4),
@@ -197,18 +198,18 @@ class _ChatAppBar extends StatelessWidget {
                 children: [
                   Text(
                     name,
-                    style: GoogleFonts.playfairDisplay(
+                    style: GoogleFonts.fraunces(
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
                       fontStyle: FontStyle.italic,
-                      color: AppColors.cream,
+                      color: AppColors.textPrimary,
                     ),
                   ),
                   Text(
                     'AI Coach',
-                    style: GoogleFonts.dmSans(
+                    style: GoogleFonts.plusJakartaSans(
                       fontSize: 11,
-                      color: AppColors.sageDim,
+                      color: AppColors.textSecondary,
                       letterSpacing: 0.3,
                     ),
                   ),
@@ -222,7 +223,7 @@ class _ChatAppBar extends StatelessWidget {
             height: 8,
             decoration: const BoxDecoration(
               shape: BoxShape.circle,
-              color: AppColors.sage,
+              color: AppColors.primary,
             ),
           ),
         ],
@@ -248,31 +249,31 @@ class _EmptyChat extends StatelessWidget {
               height: 64,
               decoration: const BoxDecoration(
                 shape: BoxShape.circle,
-                color: AppColors.surfaceRaised,
+                color: AppColors.primaryLight,
               ),
               child: const Icon(
                 Icons.chat_bubble_outline_rounded,
-                color: AppColors.sageDim,
+                color: AppColors.primary,
                 size: 28,
               ),
             ),
             const SizedBox(height: 20),
             Text(
               'Begin your session',
-              style: GoogleFonts.playfairDisplay(
+              style: GoogleFonts.fraunces(
                 fontSize: 20,
                 fontWeight: FontWeight.w600,
                 fontStyle: FontStyle.italic,
-                color: AppColors.cream,
+                color: AppColors.textPrimary,
               ),
             ),
             const SizedBox(height: 8),
             Text(
               'Your $coachName is ready to help. Ask anything.',
               textAlign: TextAlign.center,
-              style: GoogleFonts.dmSans(
+              style: GoogleFonts.plusJakartaSans(
                 fontSize: 13,
-                color: AppColors.creamMuted,
+                color: AppColors.textSecondary,
                 height: 1.5,
               ),
             ),

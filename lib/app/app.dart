@@ -10,7 +10,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       title: 'AI Wellness Coach',
-      theme: AppTheme.dark,
+      theme: AppTheme.light,
       routerConfig: appRouter,
       debugShowCheckedModeBanner: false,
     );

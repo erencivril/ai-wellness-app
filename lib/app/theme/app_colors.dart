@@ -2,31 +2,34 @@ import 'package:flutter/material.dart';
 
 abstract final class AppColors {
   // Backgrounds
-  static const bg = Color(0xFF0D1F13);
-  static const surface = Color(0xFF132A1A);
-  static const surfaceRaised = Color(0xFF1A3522);
-  static const border = Color(0xFF243D2B);
+  static const bg = Color(0xFFFAFAF7);
+  static const surface = Color(0xFFFFFFFF);
+  static const surfaceWarm = Color(0xFFF5F3EE);
+  static const border = Color(0xFFE8E4DD);
+  static const borderStrong = Color(0xFFD4CFC6);
 
-  // Primary accent — warm gold
-  static const gold = Color(0xFFD4A853);
-  static const goldDim = Color(0xFF9A7A3A);
-  static const goldGlow = Color(0x33D4A853);
+  // Primary — muted forest green
+  static const primary = Color(0xFF4A7C59);
+  static const primaryDark = Color(0xFF3A6347);
+  static const primaryLight = Color(0xFFEBF2EE);
+  static const primaryContainer = Color(0xFFD6E8DD);
 
-  // Secondary — sage
-  static const sage = Color(0xFF7BAE84);
-  static const sageDim = Color(0xFF4A7A55);
+  // Accent — warm terracotta
+  static const accent = Color(0xFFC07A5A);
+  static const accentLight = Color(0xFFF5EAE4);
 
   // Text
-  static const cream = Color(0xFFF0E8D0);
-  static const creamMuted = Color(0xFFA8A090);
-  static const textHint = Color(0xFF4A6050);
+  static const textPrimary = Color(0xFF1C1C19);
+  static const textSecondary = Color(0xFF6B6860);
+  static const textHint = Color(0xFFA8A49C);
 
   // Semantic
-  static const error = Color(0xFFD07070);
+  static const error = Color(0xFFB84040);
+  static const errorLight = Color(0xFFFAECEC);
 
-  // Coach identity orb colors
-  static const coachDietitian = Color(0xFF2E6B48);
-  static const coachFitness = Color(0xFFC4793A);
-  static const coachPilates = Color(0xFF8A4A80);
-  static const coachYoga = Color(0xFF2A7A90);
+  // Coach identity
+  static const coachDietitian = Color(0xFF5B8C6E);
+  static const coachFitness = Color(0xFFB8704A);
+  static const coachPilates = Color(0xFF8A5F8A);
+  static const coachYoga = Color(0xFF4A7A9B);
 }

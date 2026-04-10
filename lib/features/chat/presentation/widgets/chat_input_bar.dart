@@ -49,14 +49,14 @@ class _ChatInputBarState extends State<ChatInputBar> {
                 controller: _controller,
                 enabled: widget.enabled,
                 maxLines: null,
-                style: GoogleFonts.dmSans(
+                style: GoogleFonts.plusJakartaSans(
                   fontSize: 14,
-                  color: AppColors.cream,
+                  color: AppColors.textPrimary,
                   height: 1.5,
                 ),
                 decoration: InputDecoration(
                   hintText: widget.enabled ? 'Message your coach…' : 'Thinking…',
-                  hintStyle: GoogleFonts.dmSans(
+                  hintStyle: GoogleFonts.plusJakartaSans(
                     fontSize: 14,
                     color: AppColors.textHint,
                   ),
@@ -132,15 +132,15 @@ class _SendButtonState extends State<_SendButton>
                 ? const LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
-                    colors: [AppColors.gold, AppColors.goldDim],
+                    colors: [AppColors.primary, AppColors.primaryDark],
                   )
                 : null,
-            color: enabled ? null : AppColors.surfaceRaised,
+            color: enabled ? null : AppColors.surfaceWarm,
           ),
           child: Icon(
             Icons.arrow_upward_rounded,
             size: 20,
-            color: enabled ? AppColors.bg : AppColors.textHint,
+            color: enabled ? Colors.white : AppColors.textHint,
           ),
         ),
       ),

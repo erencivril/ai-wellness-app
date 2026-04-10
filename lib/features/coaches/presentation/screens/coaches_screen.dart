@@ -38,7 +38,7 @@ class _CoachesView extends StatelessWidget {
                   state.status == CoachesStatus.initial)
                 const SliverFillRemaining(
                   child: Center(
-                    child: CircularProgressIndicator(color: AppColors.gold),
+                    child: CircularProgressIndicator(color: AppColors.primary),
                   ),
                 )
               else if (state.status == CoachesStatus.error)
@@ -46,7 +46,7 @@ class _CoachesView extends StatelessWidget {
                   child: Center(
                     child: Text(
                       state.errorMessage ?? 'Something went wrong',
-                      style: const TextStyle(color: AppColors.creamMuted),
+                      style: const TextStyle(color: AppColors.textSecondary),
                     ),
                   ),
                 )
@@ -59,7 +59,7 @@ class _CoachesView extends StatelessWidget {
                       crossAxisCount: 2,
                       crossAxisSpacing: 14,
                       mainAxisSpacing: 14,
-                      childAspectRatio: 0.78,
+                      childAspectRatio: 0.68,
                     ),
                     delegate: SliverChildBuilderDelegate(
                       (context, index) {
@@ -101,16 +101,16 @@ class _Header extends StatelessWidget {
                 height: 6,
                 decoration: const BoxDecoration(
                   shape: BoxShape.circle,
-                  color: AppColors.gold,
+                  color: AppColors.primary,
                 ),
               ),
               const SizedBox(width: 8),
               Text(
                 'AI Wellness',
-                style: GoogleFonts.dmSans(
+                style: GoogleFonts.plusJakartaSans(
                   fontSize: 11,
                   fontWeight: FontWeight.w500,
-                  color: AppColors.gold,
+                  color: AppColors.primary,
                   letterSpacing: 1.2,
                 ),
               ),
@@ -122,20 +122,20 @@ class _Header extends StatelessWidget {
               children: [
                 TextSpan(
                   text: 'Your\n',
-                  style: GoogleFonts.playfairDisplay(
+                  style: GoogleFonts.fraunces(
                     fontSize: 46,
                     fontWeight: FontWeight.w400,
                     fontStyle: FontStyle.italic,
-                    color: AppColors.cream,
+                    color: AppColors.textPrimary,
                     height: 1.0,
                   ),
                 ),
                 TextSpan(
                   text: 'Coaches',
-                  style: GoogleFonts.playfairDisplay(
+                  style: GoogleFonts.fraunces(
                     fontSize: 46,
                     fontWeight: FontWeight.w700,
-                    color: AppColors.cream,
+                    color: AppColors.textPrimary,
                     height: 1.1,
                   ),
                 ),
@@ -145,9 +145,9 @@ class _Header extends StatelessWidget {
           const SizedBox(height: 10),
           Text(
             'Choose your guide for today',
-            style: GoogleFonts.dmSans(
+            style: GoogleFonts.plusJakartaSans(
               fontSize: 14,
-              color: AppColors.sageDim,
+              color: AppColors.textSecondary,
               fontWeight: FontWeight.w400,
             ),
           ),

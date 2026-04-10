@@ -24,7 +24,7 @@ class StreamingBubble extends StatelessWidget {
             bottomRight: Radius.circular(18),
           ),
           border: Border(
-            left: BorderSide(color: AppColors.sageDim, width: 2),
+            left: BorderSide(color: AppColors.primaryContainer, width: 2),
           ),
         ),
         child: Row(
@@ -35,9 +35,9 @@ class StreamingBubble extends StatelessWidget {
               Flexible(
                 child: Text(
                   text,
-                  style: GoogleFonts.dmSans(
+                  style: GoogleFonts.plusJakartaSans(
                     fontSize: 14,
-                    color: AppColors.cream,
+                    color: AppColors.textPrimary,
                     height: 1.6,
                   ),
                 ),
@@ -46,7 +46,7 @@ class StreamingBubble extends StatelessWidget {
               _TypingDots(),
             if (text.isNotEmpty) ...[
               const SizedBox(width: 6),
-              _GoldCursor(),
+              _GreenCursor(),
             ],
           ],
         ),
@@ -55,12 +55,12 @@ class StreamingBubble extends StatelessWidget {
   }
 }
 
-class _GoldCursor extends StatefulWidget {
+class _GreenCursor extends StatefulWidget {
   @override
-  State<_GoldCursor> createState() => _GoldCursorState();
+  State<_GreenCursor> createState() => _GreenCursorState();
 }
 
-class _GoldCursorState extends State<_GoldCursor>
+class _GreenCursorState extends State<_GreenCursor>
     with SingleTickerProviderStateMixin {
   late final AnimationController _ctrl;
 
@@ -87,7 +87,7 @@ class _GoldCursorState extends State<_GoldCursor>
         width: 2,
         height: 14,
         decoration: BoxDecoration(
-          color: AppColors.gold,
+          color: AppColors.primary,
           borderRadius: BorderRadius.circular(1),
         ),
       ),
@@ -136,7 +136,7 @@ class _TypingDotsState extends State<_TypingDots>
               height: 5,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: AppColors.sage.withValues(alpha: opacity),
+                color: AppColors.primary.withValues(alpha: opacity),
               ),
             );
           }),

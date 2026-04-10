@@ -5,78 +5,78 @@ import 'package:google_fonts/google_fonts.dart';
 import 'app_colors.dart';
 
 abstract final class AppTheme {
-  static ThemeData get dark {
+  static ThemeData get light {
     return ThemeData(
       useMaterial3: true,
-      brightness: Brightness.dark,
+      brightness: Brightness.light,
       scaffoldBackgroundColor: AppColors.bg,
-      colorScheme: const ColorScheme.dark(
-        primary: AppColors.gold,
-        onPrimary: AppColors.bg,
-        secondary: AppColors.sage,
-        onSecondary: AppColors.bg,
+      colorScheme: const ColorScheme.light(
+        primary: AppColors.primary,
+        onPrimary: Colors.white,
+        secondary: AppColors.accent,
+        onSecondary: Colors.white,
         surface: AppColors.surface,
-        onSurface: AppColors.cream,
-        surfaceContainerHighest: AppColors.surfaceRaised,
+        onSurface: AppColors.textPrimary,
+        surfaceContainerHighest: AppColors.surfaceWarm,
         outline: AppColors.border,
         error: AppColors.error,
-        primaryContainer: AppColors.surfaceRaised,
-        onPrimaryContainer: AppColors.gold,
+        primaryContainer: AppColors.primaryContainer,
+        onPrimaryContainer: AppColors.primaryDark,
       ),
-      textTheme: GoogleFonts.dmSansTextTheme(ThemeData.dark().textTheme).copyWith(
-        displayLarge: GoogleFonts.playfairDisplay(
+      textTheme: GoogleFonts.plusJakartaSansTextTheme(ThemeData.light().textTheme).copyWith(
+        displayLarge: GoogleFonts.fraunces(
           fontSize: 48,
           fontWeight: FontWeight.w700,
-          color: AppColors.cream,
+          color: AppColors.textPrimary,
         ),
-        headlineMedium: GoogleFonts.playfairDisplay(
+        headlineMedium: GoogleFonts.fraunces(
           fontSize: 22,
           fontWeight: FontWeight.w600,
-          color: AppColors.cream,
+          color: AppColors.textPrimary,
         ),
-        titleLarge: GoogleFonts.playfairDisplay(
+        titleLarge: GoogleFonts.fraunces(
           fontSize: 18,
           fontWeight: FontWeight.w600,
-          color: AppColors.cream,
+          color: AppColors.textPrimary,
         ),
-        titleMedium: GoogleFonts.dmSans(
+        titleMedium: GoogleFonts.plusJakartaSans(
           fontSize: 16,
           fontWeight: FontWeight.w500,
-          color: AppColors.cream,
+          color: AppColors.textPrimary,
         ),
-        bodyLarge: GoogleFonts.dmSans(
+        bodyLarge: GoogleFonts.plusJakartaSans(
           fontSize: 16,
-          color: AppColors.cream,
+          color: AppColors.textPrimary,
           height: 1.6,
         ),
-        bodyMedium: GoogleFonts.dmSans(
+        bodyMedium: GoogleFonts.plusJakartaSans(
           fontSize: 14,
-          color: AppColors.cream,
+          color: AppColors.textPrimary,
           height: 1.55,
         ),
-        bodySmall: GoogleFonts.dmSans(
+        bodySmall: GoogleFonts.plusJakartaSans(
           fontSize: 12,
-          color: AppColors.creamMuted,
+          color: AppColors.textSecondary,
         ),
-        labelMedium: GoogleFonts.dmSans(
+        labelMedium: GoogleFonts.plusJakartaSans(
           fontSize: 12,
           fontWeight: FontWeight.w500,
-          color: AppColors.sage,
+          color: AppColors.primary,
         ),
-        labelSmall: GoogleFonts.dmSans(
+        labelSmall: GoogleFonts.plusJakartaSans(
           fontSize: 11,
-          color: AppColors.creamMuted,
+          color: AppColors.textHint,
           letterSpacing: 0.3,
         ),
       ),
       appBarTheme: const AppBarTheme(
-        backgroundColor: AppColors.bg,
-        foregroundColor: AppColors.cream,
+        backgroundColor: AppColors.surface,
+        foregroundColor: AppColors.textPrimary,
         elevation: 0,
         scrolledUnderElevation: 0,
         systemOverlayStyle: SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
-          statusBarIconBrightness: Brightness.light,
+          statusBarIconBrightness: Brightness.dark,
         ),
       ),
       cardTheme: CardThemeData(
@@ -94,7 +94,7 @@ abstract final class AppTheme {
       ),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         backgroundColor: AppColors.surface,
-        selectedItemColor: AppColors.gold,
+        selectedItemColor: AppColors.primary,
         unselectedItemColor: AppColors.textHint,
         elevation: 0,
         type: BottomNavigationBarType.fixed,
@@ -107,7 +107,7 @@ abstract final class AppTheme {
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: AppColors.surfaceRaised,
+        fillColor: AppColors.surfaceWarm,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(28),
           borderSide: const BorderSide(color: AppColors.border),
@@ -118,22 +118,22 @@ abstract final class AppTheme {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(28),
-          borderSide: const BorderSide(color: AppColors.gold, width: 1.5),
+          borderSide: const BorderSide(color: AppColors.primary, width: 1.5),
         ),
-        hintStyle: GoogleFonts.dmSans(
+        hintStyle: GoogleFonts.plusJakartaSans(
           color: AppColors.textHint,
           fontSize: 14,
         ),
         contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
       ),
       snackBarTheme: SnackBarThemeData(
-        backgroundColor: AppColors.surfaceRaised,
-        contentTextStyle: GoogleFonts.dmSans(color: AppColors.cream, fontSize: 14),
+        backgroundColor: AppColors.textPrimary,
+        contentTextStyle: GoogleFonts.plusJakartaSans(color: Colors.white, fontSize: 14),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         behavior: SnackBarBehavior.floating,
       ),
       progressIndicatorTheme: const ProgressIndicatorThemeData(
-        color: AppColors.gold,
+        color: AppColors.primary,
       ),
     );
   }
