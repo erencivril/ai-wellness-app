@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../features/chat/presentation/screens/chat_screen.dart';
+import '../../features/coaches/data/models/coach.dart';
 import '../../features/coaches/presentation/screens/coaches_screen.dart';
 import '../../features/history/presentation/screens/history_screen.dart';
 import 'route_names.dart';
@@ -44,8 +45,8 @@ final appRouter = GoRouter(
       path: RoutePaths.newChat,
       name: RouteNames.newChat,
       builder: (context, state) {
-        final coachId = state.pathParameters['coachId']!;
-        return ChatScreen(coachId: coachId);
+        final coach = state.extra as Coach;
+        return ChatScreen(coach: coach);
       },
     ),
     GoRoute(
@@ -53,8 +54,10 @@ final appRouter = GoRouter(
       path: RoutePaths.resumeChat,
       name: RouteNames.resumeChat,
       builder: (context, state) {
-        final sessionId = state.pathParameters['sessionId']!;
-        return ChatScreen(sessionId: sessionId);
+        final extra = state.extra as Map<String, dynamic>;
+        final coach = extra['coach'] as Coach;
+        final sessionId = extra['sessionId'] as String;
+        return ChatScreen(coach: coach, sessionId: sessionId);
       },
     ),
   ],
