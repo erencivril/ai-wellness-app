@@ -4,7 +4,7 @@ import '../../features/chat/data/models/chat_message.dart';
 
 class FirebaseAIService {
   GenerativeModel _createModel(String systemInstruction) {
-    return FirebaseAI.googleAI().generativeModel(
+    return FirebaseAI.vertexAI().generativeModel(
       model: 'gemini-2.5-flash',
       systemInstruction: Content.system(systemInstruction),
     );
