@@ -49,5 +49,9 @@ android/app/google-services.json
 ios/Runner/GoogleService-Info.plist
 lib/firebase_options.dart
 
+# Firebase CLI files
+firebase.json
+.firebaserc
+
 # Case study PDF
 Academy Case.pdf
